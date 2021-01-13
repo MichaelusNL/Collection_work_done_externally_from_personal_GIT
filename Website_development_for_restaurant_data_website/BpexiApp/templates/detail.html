@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detail • Onescnd Dashboard</title>
+    {% include 'header.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.css" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.1.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css'%}">
+    <style type="text/css">
+        .hidden { display: none; }
+        .visible { display: block; }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+<div class="main_content" id="wrapper">
+    <div id="detail_header">
+        <div id="detail_title"><h2>{{ datum }} - Tafel: {{ tafel_nr}}</h2></div>
+        <div id="detail_select">
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td class="directional"><input type="submit" name="previous" class="previous" value ="<<"></td>
+                        <td><input type="date" required="required" name="datum" id="datum" value="{{ vandaag }}"
+                            class="date" ></td>
+                        <td class="directional"><input type="submit" name="next" class="next" value=">>"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" name="datumselect" class="select"
+                                    value="datumselect">Uitvoeren</button></td>
+                        <td></td>
+                        <td>
+                            <button type="submit" name="overzicht" class="over"value="datumselect">Overzichtsscherm</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+        {% if data_none != "" %}
+            &nbsp;
+            <div id="detail_grafiek">{{ lg_div | safe }} {{ lg_script | safe }}</div>
+            &nbsp;
+            <div id="detail_body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col" width="50%" style="text-align: left;">Aantal kliks</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td class="l_table">Totaal:</td>
+                        <td class="r_table">{{ t_click }}</td>
+                    </tr>
+                    <tr>
+                        <td class="l_table">Eten:</td>
+                        <td class="r_table">{{ e_click }}</td>
+                    </tr>
+                    <tr>
+                        <td class="l_table">Drinken:</td>
+                        <td class="r_table">{{ d_click }}</td>
+                    </tr>
+                    <tr>
+                        <td class="l_table">Betalen:</td>
+                        <td class="r_table">{{ b_click }}</td>
+                    </tr>
+                </table>
+                &nbsp;
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col" width="50%" style="text-align: left;">Wachttijd</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td class="l_table">Gemiddeld:</td>
+                        <td class="r_table">{{ g_wacht }} minuten</td>
+                    </tr>
+                    <tr>
+                        <td class="l_table">Minimum:</td>
+                        <td class="r_table">{{ min_wacht }} minuten</td>
+                    </tr>
+                    <tr>
+                        <td class="l_table">Maximum:</td>
+                        <td class="r_table">{{ max_wacht }} minuten</td>
+                    </tr>
+                </table>
+                &nbsp<br>
+                {% if selection != "" %}
+                    <b>Wachttijden van 15+ minuten (uu:mm:ss)</b><br>
+                    <div class="hidden" id="kliks_15">{{selection | safe}}</div>
+                {% endif %}
+            </div>
+            &nbsp;
+            <div id="barplot">
+                <table>
+                    <tr>
+                        <td>
+                            {% for key, value in bokeh_bp.items %}
+                            <div class='hidden' id={{key}}>{{value | safe}}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <form action="">
+                                <input type="radio" name="bar_view" id="absoluut" value="absoluut" onclick="radioButtons();"> Absoluut<br>
+                                <input type="radio" name="bar_view" id="procentueel" value="procentueel" checked onclick="radioButtons();"> Procentueel<br>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% else %}
+            <div id="geen_data">
+                Er is geen data beschikbaar voor deze tafel op deze datum.
+                Kies een andere datum.
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+</body>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.js"></script>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.1.min.js"></script>
+<script type="text/javascript">
+    var bp_pe_d = document.getElementById("2");
+    var bp_pe_s = document.getElementById("3");
+    bp_pe_d.setAttribute('class', 'visible');
+    bp_pe_s.setAttribute('class', 'visible');
+
+    function radioButtons() {
+        var bp_ab_d = document.getElementById("0");
+        var bp_ab_s = document.getElementById("1");
+        var bp_pe_d = document.getElementById("2");
+        var bp_pe_s = document.getElementById("3");
+
+        var absoluut = document.getElementById('absoluut');
+        var procentueel = document.getElementById('procentueel');
+
+        if (absoluut.checked === true && procentueel.checked === false) {
+            deactivate_barplots();
+            bp_ab_d.setAttribute('class', 'visible');
+            bp_ab_s.setAttribute('class', 'visible');
+        }
+
+        if (absoluut.checked === false && procentueel.checked === true) {
+            deactivate_barplots();
+            bp_pe_d.setAttribute('class', 'visible');
+            bp_pe_s.setAttribute('class', 'visible');
+        }
+    }
+    function deactivate_barplots() {
+        var active_barplots = document.getElementsByClassName('visible');
+        while (active_barplots.length) {
+            active_barplots[0].className = 'hidden';
+        }
+    }
+</script>
+</html>

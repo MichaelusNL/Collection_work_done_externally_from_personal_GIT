@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/favicon.ico' %}">
+</head>
+
+<body>
+{% if user.is_authenticated %}
+    <div id="logo">
+        {% load static %}
+        <img src="{% static 'images/onescnd_log.png' %}" class="logo_onescnd"/>
+        &nbsp; &nbsp; {{ user }}
+    </div>
+    <form method="post" >
+        {% csrf_token %}
+        <div class="sidenav">
+            <button type="submit" name="vergelijken" value="vergelijken">Vergelijken</button><br>
+            <button type="submit" name="dag" value="dag">Dag</button><br>
+            <button type="submit" name="week" value="week">Week</button><br>
+            <button type="submit" name="maand" value="maand">Maand</button><br>
+            <button type="submit" name="jaar" value="jaar">Jaar</button><br>
+            &nbsp;
+            <button type="submit" name="live" value="live">Live<img style="float: right;" src="{% static 'images/rdot.png' %}" class="rdot_logo"/></button>
+            <button type="submit" name="logout" value="logout">Uitloggen</button>
+            {% load static %}
+
+        </div>
+    </form>
+
+{% else %}
+    {% load static %}
+    <div id="unauth_achtergrond">
+        <img src="{% static 'images/onescnd_log.png' %}" class="logo_onescnd"/>
+        <div id="unauth">
+            <div id="unauth_span">
+                Geen geldig wachtwoord en/of gebruikersnaam.<br>
+                Probeer opnieuw in te loggen.<br><br>
+                <button type="submit" onclick="location.href='/';" id="logRedirect">Log in</button><br>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</body>
+</html>

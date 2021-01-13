@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/LoginPage.css'%}">
+    <meta charset="UTF-8">
+    <title>Login • Onescnd Dashboard</title>
+    <img src="{% static 'images/onescnd_log.png' %}" class="logo_onescnd"/>
+</head>
+<body id="bg" style="background-image: url('{% static "images/Background1.png"%}')";>
+    <div id="parent">
+        <form method="post" id="login_form">
+            {% csrf_token %}
+            <div id="text">
+            <br><br> Log in met Uw Onescnd Account.<br><br>
+            </div>
+            <div id="log">
+                <table align="center">
+                    <tr>
+                        <td>
+                            &nbsp;Gebruikersnaam:
+                        </td>
+                        <td>
+                            <input required type="text" id="user" name="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;Wachtwoord:
+                        </td>
+                        <td>
+                            <input required type="password" id="user" name="password"><br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="warningText">{{ warning }} </div>
+            <div id="aanmeld">
+                <button type="submit" name="aanmelden" class="button" value="Log in">Log in</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

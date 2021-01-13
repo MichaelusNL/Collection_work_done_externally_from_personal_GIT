@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Overzicht • Onescnd Dashboard</title>
+    {% include 'header.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.css" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.1.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/overzicht.css'%}">
+    <style type="text/css">
+        .hidden { display: none; }
+        .visible { display: block; }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div class="main_content">
+            <div id="overzicht_header">
+                <div id="gem_title"><h2>{{ datum }}</h2></div>
+                <div id="gem_select">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <table class="datumtable">
+                            <tr>
+                                <td class="directional"><input type="submit" name="previous" class="previous" value ="<<"></td>
+                                <td id="date2"><input type="date" required="required" name="datum" class="date"
+                                                      value="{{ vandaag }}"></td>
+                                <td class="directional"><input type="submit" name="next" class="next" value=">>"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><button type="submit" name="datumselect" class="select"
+                                            value="datumselect">Uitvoeren</button></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            &nbsp;
+            {% if data_none != "" %}
+            <div id="wachttijd_container">
+                <table width="100%">
+                    <tr>
+                        <td width="60%">&nbsp;</td>
+                        <td><div id="infotekst">{% if warning != "" %}Let op! Tafels met 15+ minuten wachttijd.{% endif %}</div></td>
+                    </tr>
+                </table>
+                &nbsp;
+                <table>
+                    <tr>
+                        <td width="60%">
+                            {{ lg_div | safe }} {{ lg_script | safe }}
+                        </td>
+                        <td>
+                            <div class="warning" id="warning">{{ warning | safe }}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            &nbsp;
+            <div id="heatmap_container">
+                <table>
+                    <tr>
+                        <td width="60%">
+                        {% for key, value in bokeh_hm.items %}
+                            <div class='hidden' id={{key}}>{{value | safe}}</div>
+                        {% endfor %}
+                        </td>
+                        <td>Servicetype:<br>
+                            <form action="">
+                                <input type="checkbox" id="eten" name="eten" onclick="checkBoxes()" checked> Eten<br>
+                                <input type="checkbox" id="drinken" name="drinken" onclick="checkBoxes()" checked> Drinken<br>
+                                <input type="checkbox" id="betalen" name="betalen" onclick="checkBoxes()" checked> Betalen<br>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        {% else %}
+            <div id="geen_data">
+                Er is geen data beschikbaar op deze datum.
+                Kies een andere datum.
+            </div>
+        {% endif %}
+{% endif %}
+
+</body>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.js"></script>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.1.min.js"></script>
+<script type="text/javascript">
+    /* Indien op een tafel wordt geklikt uit de tabel met 15+ min wachttijden wordt diens detailpagina geopend. */
+    var table = document.getElementsByClassName('dataframe')[0];
+    if (table != null) {
+        for (var i = 0; i < table.rows.length; i++) {
+            for (var j = 0; j < table.rows[i].cells.length; j++)
+                table.rows[i].cells[j].onclick = function () {
+                    tableText(this);
+                };
+        }
+    }
+    // Default Heatmap to visible
+    var hm_edb_d = document.getElementById("14");
+    var hm_edb_s = document.getElementById("15");
+    hm_edb_s.setAttribute('class', 'visible');
+    hm_edb_d.setAttribute('class', 'visible');
+
+    function tableText(tableCell) {
+        var url = "http://127.0.0.1:8000/detail/?tafel_nr=";
+        url += tableCell.innerHTML;
+        window.open(url,"_self");
+    }
+
+    function checkBoxes() {
+        var hm_none_d = document.getElementById("0");
+        var hm_none_s = document.getElementById("1");
+        var hm_e_d = document.getElementById("2");
+        var hm_e_s = document.getElementById("3");
+        var hm_d_d = document.getElementById("4");
+        var hm_d_s = document.getElementById("5");
+        var hm_b_d = document.getElementById("6");
+        var hm_b_s = document.getElementById("7");
+        var hm_ed_d = document.getElementById("8");
+        var hm_ed_s = document.getElementById("9");
+        var hm_eb_d = document.getElementById("10");
+        var hm_eb_s = document.getElementById("11");
+        var hm_db_d = document.getElementById("12");
+        var hm_db_s = document.getElementById("13");
+        var hm_edb_d = document.getElementById("14");
+        var hm_edb_s = document.getElementById("15");
+
+        var eten = document.getElementById('eten');
+        var drinken = document.getElementById('drinken');
+        var betalen = document.getElementById('betalen');
+
+        if (eten.checked === true && drinken.checked === false && betalen.checked === false) {
+            deactivate_heatmaps();
+            hm_e_s.setAttribute('class', 'visible');
+            hm_e_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === true && drinken.checked === true && betalen.checked === false) {
+            deactivate_heatmaps();
+            hm_ed_s.setAttribute('class', 'visible');
+            hm_ed_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === true && drinken.checked === false && betalen.checked === true) {
+            deactivate_heatmaps();
+            hm_eb_s.setAttribute('class', 'visible');
+            hm_eb_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === false && drinken.checked === true && betalen.checked === false) {
+            deactivate_heatmaps();
+            hm_d_s.setAttribute('class', 'visible');
+            hm_d_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === false && drinken.checked === true && betalen.checked === true) {
+            deactivate_heatmaps();
+            hm_db_s.setAttribute('class', 'visible');
+            hm_db_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === false && drinken.checked === false && betalen.checked === true) {
+            deactivate_heatmaps();
+            hm_b_s.setAttribute('class', 'visible');
+            hm_b_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === true && drinken.checked === true && betalen.checked === true) {
+            deactivate_heatmaps();
+            hm_edb_s.setAttribute('class', 'visible');
+            hm_edb_d.setAttribute('class', 'visible');
+        }
+        if (eten.checked === false && drinken.checked === false && betalen.checked === false) {
+            deactivate_heatmaps();
+            hm_none_s.setAttribute('class', 'visible');
+            hm_none_d.setAttribute('class', 'visible');
+        }
+    }
+    function deactivate_heatmaps() {
+        var active_heatmap = document.getElementsByClassName('visible');
+        while (active_heatmap.length) {
+            active_heatmap[0].className = 'hidden';
+        }
+    }
+</script>
+</html>
+

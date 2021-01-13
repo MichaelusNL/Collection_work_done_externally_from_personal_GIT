@@ -1,0 +1,204 @@
+/* Zorgt ervoor dat content niet overlapt met het menu (sidenav) */
+.main_content {
+    margin-top: 110px;
+    margin-left: 220px;
+    margin-bottom: 20px;
+    z-index: 10;
+}
+
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #f1f1f1;
+    font-family: "Open Sans", "sans-serif";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img.rdot_logo {
+    height: auto;
+    display: block;
+    position: fixed;
+    margin: -10px 0px 15px 15px;
+    width: 0.3%;
+}
+
+img.logo_onescnd {
+    height: auto;
+    max-width: 400px;
+    max-height: 400px;
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    margin: auto;
+    width: 9%;
+}
+
+#logo {
+    float: bottom;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-align: left;
+    font: normal 500% 'tangerine';
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    background: #F7F7F7 url(resto.png) fixed;
+    color: white;
+    background-size: cover;
+}
+
+#head_text {
+    position: fixed;
+    top: 105px;
+    bottom: 0;
+    left: 140px;
+    right: 20px;
+    margin: auto;
+}
+
+#header {
+    width: 100%;
+    height: 145px;
+    z-index: 10;
+}
+
+#main, #header, #logo, #menubar, #site_content, #footer {
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+
+}
+
+.sidenav {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    top: 90px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.sidenav button{
+    padding: 10px 30px;
+    background:transparent;
+    color:#f1f1f1;
+    border:none;
+    text-align: center;
+    position:relative;
+    width: 100%;
+    font-size: 20px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+.sidenav button:hover{
+    background-image: linear-gradient(to right, white , #f1f1f1);
+    color:black;
+}
+.sidenav button:before,.sidenav button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: black;
+    transition:400ms ease all;
+}
+.sidenav button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.sidenav button:hover:before,.sidenav button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+
+
+#geen_data {
+    margin-top: 10%;
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#unauth_achtergrond{
+    background-image: url('../images/Background1.png');
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+}
+
+#unauth {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(255,255,255,.7);
+    position:fixed;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    max-width:500px;
+    max-height:300px;
+    overflow:auto;
+}
+
+#unauth_span {
+    font-size: 23px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#logRedirect{
+    margin: 5px 0 0 0;
+    padding: 5px 10px 5px 10px;
+    background: dodgerblue;
+    width: 50%;
+    color:#fff;
+    border:none;
+    position:relative;
+    font-size: 14px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    border-radius: 6px 0px;
+}
+#logRedirect:hover{
+    background:transparent;
+    color: black;
+}
+#logRedirect:before,#logRedirect:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: dodgerblue;
+    transition:400ms ease all;
+}
+#logRedirect:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+#logRedirect:hover:before,#logRedirect:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}

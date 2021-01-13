@@ -1,0 +1,140 @@
+/* Styling */
+#overzicht_header, #wachttijd_container, #heatmap_container {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid gainsboro;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 95%;
+}
+
+/* Titel */
+#gem_select, #gem_select2 {
+    width: 40%;
+}
+
+#gem_title {
+    float: right;
+    width: 60%;
+    align-content: center;
+}
+
+#gem_select td{
+    width: 33%;
+}
+
+.date{
+    width: 100%;
+}
+
+/* Datum Selectie */
+.next, .previous {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    display: inline-block;
+    background-color: transparent;
+    color: black;
+    border-style: none;
+    outline: none;
+}
+
+.next:hover, .previous:hover{
+    background-color: lightgrey;
+}
+
+.datumtable{
+    width: 40%;
+    height: 100%;
+}
+
+.date::-webkit-inner-spin-button,
+.date::-webkit-calendar-picker-indicator {
+    -webkit-appearance: default-button;
+}
+
+input[type="date"] {
+    border-style: none;
+    outline: none;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+.warning {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+div.warning table {
+    width: 100%;
+    height: 100%;
+}
+
+div.warning th, div.warning td {
+    padding: 15px;
+    text-align: center;
+}
+
+div.warning table tr:nth-child(even) {
+    background-color: #eee;
+}
+
+div.warning table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+div.warning table th {
+    background-color: black;
+    color: white;
+}
+
+#warning table tr:hover {cursor: pointer;}
+
+#warning thead tr:nth-child(1) th{
+    position: sticky;
+    top: 0;
+}
+
+#infotekst {
+    font-size: 17px;
+    font-weight: bold;
+}
+.select{
+    margin: 5px 0 0 0;
+    padding: 5px 10px 5px 10px;
+    background: dodgerblue;
+    width: 100%;
+    color:#fff;
+    border:none;
+    position:relative;
+    font-size: 14px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    border-radius: 6px 0px;
+}
+.select:hover{
+    background:#fff;
+    color: black;
+}
+.select:before,.select:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: dodgerblue;
+    transition:400ms ease all;
+}
+.select:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.select:hover:before,.select:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}

@@ -1,0 +1,106 @@
+/* Coloring */
+body {
+    background-color: #f1f1f1;
+    font-family: "Open Sans", "sans-serif";
+}
+
+#vergelijk_header, #vergelijk_body {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid gainsboro;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+/* Datum, Tafel en Wijk selectie weergeven op deze hoogte */
+#wrapper {
+    display: table;
+    width: 80%;
+}
+
+.left {
+    float: left;
+}
+
+#periode_1 {
+    width: 30%;
+}
+
+#tafels {
+    width: 20%;
+}
+
+#wijken {
+    width: 49%;
+}
+
+
+/* Styling voor datum invoervelden */
+.datum_invoer {
+    display: block;
+    height: 17px;
+    width: 125px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling 'Vergelijk' en 'Periode Toevoegen' knoppen */
+.btn{
+    border-radius: 6px 0px;
+    line-height: 14px;
+    margin: 5px 0 0 0;
+    padding: 8px 12px 8px 12px;
+    background: dodgerblue;
+    color:#fff;
+    border:none;
+    position:relative;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+.btn:hover{
+    background:#fff;
+    color:black;
+}
+.btn:before,.btn:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: dodgerblue;
+    transition:400ms ease all;
+}
+.btn:after{
+    border-radius: 6px;
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.btn:hover:before,.btn:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+
+/* Making a scrollable box containing a list of checkboxes for all tables and wijken */
+.selectie_containter {
+    margin:4px;
+    padding:4px;
+    width: 50%;
+    height: 100px;
+    overflow-y: scroll;
+    text-align:justify;
+}
+
+/* Vergelijkings scherm uitleg */
+#vergelijk_uitleg {
+    font-size: 14px;
+}

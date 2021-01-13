@@ -1,0 +1,145 @@
+/* Coloring */
+body {
+    background-color: #f1f1f1;
+    font-family: "Open Sans", "sans-serif";
+    font-size: 16px;
+
+}
+
+#detail_header, #detail_grafiek, #detail_body, #barplot {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid gainsboro;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 95%;
+}
+
+/* Informatie (Kliks en wachttijd) */
+.l_table{
+    text-align: left;
+}
+
+.r_table{
+    text-align: left;
+}
+
+#kliks_15 {
+    height: auto;
+    max-height: 200px;
+    display: inline-block;
+    overflow-y: scroll;
+}
+
+#kliks_15 th, #kliks_15 td {
+    text-align: left;
+    font-size: 15px;
+}
+
+#kliks_15 table tr:nth-child(even) {
+    background-color: #eee;
+}
+
+#kliks_15 table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+#kliks_15 table th {
+    font-weight: bold;
+}
+
+#kliks_15 thead tr:nth-child(1) th{
+    background: white;
+    position: sticky;
+    top: 0;
+}
+
+/* Titel */
+#detail_select {
+    width: 40%;
+}
+
+
+
+.directional{
+    width: 10%;
+}
+.date{
+    width: 100%;
+}
+
+#detail_title {
+    float: right;
+    width: 60%;
+    align-content: center;
+}
+
+/* Datum Selectie */
+.next, .previous {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    display: inline-block;
+    background-color: transparent;
+    color: black;
+    border-style: none;
+}
+
+.next:hover, .previous:hover {
+    background-color: lightgrey;
+}
+
+input[type="date"] {
+    border-style: none;
+    outline: none;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+.select, .over{
+    margin: 5px 0 0 0;
+    padding: 5px 10px 5px 10px;
+    background: dodgerblue;
+    color:#fff;
+    border:none;
+    position:relative;
+    font-size: 14px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    border-radius: 6px 0px;
+    width: 100%;
+}
+
+.select:hover,.over:hover{
+    background:#fff;
+    color: black;
+}
+
+.select:before,.select:after,.over:before,.over:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: dodgerblue;
+    transition:400ms ease all;
+}
+
+.select:after,.over:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+.select:hover:before,.select:hover:after,.over:hover:before,.over:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
+
+
+
+
+

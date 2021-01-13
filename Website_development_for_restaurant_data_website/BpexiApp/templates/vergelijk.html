@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vergelijk • Onescnd Dashboard</title>
+    {% include 'header.html' %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/vergelijk.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        /* Limiteer het aantal actieve checkboxes */
+
+        function checkboxlimit(checkgroup, limit){
+            var checkgroup = checkgroup;
+            var limit = limit;
+            for (var i=0; i<checkgroup.length; i++){
+                checkgroup[i].onclick=function(){
+                    var checkedcount=0;
+                    for (var i=0; i<checkgroup.length; i++)
+                        checkedcount+=(checkgroup[i].checked)? 1 : 0
+                    if (checkedcount>limit){
+                        alert("Er kunnen maximaal "+limit+" tafels/wijken worden geselecteerd.");
+                        this.checked=false
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div class="main_content" id="wrapper">
+        <div id="vergelijk_header">
+            <h2>Data vergelijken</h2>
+            &nbsp;
+            <div id="vergelijk_uitleg">
+                Standaard kunnen meerdere tafels <i>of</i> wijken worden geselecteerd om met elkaar
+                vergeleken te worden tussen twee datums.<br> Alternatief kan via de Periode toevoegen-knop gekozen worden voor het
+                vergelijken van data tussen twee periodes.
+            </div>
+        </div>
+        &nbsp;
+        <form method="POST" name="vergelijk">
+            {% csrf_token %}
+            <div id="vergelijk_body">
+                <div id="periode_1" class="left">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <h3 id="titel_p1">Datums</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right:20px;">
+                                <b id="van_p1">Datum 1:</b>
+                            </td>
+                            <td>
+                                <input type="date" class="datum_invoer" id="van_datum_1" name="van_datum_1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right:20px;padding-top:10px">
+                                <b id="tot_p1">Datum 2:</b>
+                            </td>
+                            <td style="padding-top:10px;">
+                                <input type="date" class="datum_invoer" id="tot_datum_1" name="tot_datum_1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                &nbsp;
+                <div id="tafels" class="left">
+                    <h3>Tafel selectie</h3>
+                    <div class="selectie_containter">
+                        {% for tafel in tafels %}
+                            <input type="checkbox" class="tafelCheck" name="tafels" value="{{ tafel }}" onclick="limiet();periodeDeactiveren();wijkDeactiveren()"/> {{tafel}} <br />
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="wijken" class="left">
+                    <h3>Wijk selectie</h3>
+                    <div class="selectie_containter">
+                        {% for wijk in wijken %}
+                            <input type="checkbox" class="wijkCheck" name="wijken" value="{{ wijk }}" onclick="limiet();periodeDeactiveren();tafelDeactiveren()" /> {{wijk}} <br />
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="periode_2" style="display:none">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <h3>Periode 2</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right:20px;">
+                                <b>Van:</b>
+                            </td>
+                            <td>
+                                <input type="date" class="datum_invoer" id="van_datum_2" name="van_datum_2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right:20px;padding-top:10px">
+                                <b>Tot:</b>
+                            </td>
+                            <td style="padding-top:10px;">
+                                <input type="date" class="datum_invoer" id="tot_datum_2" name="tot_datum_2">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                        </td>
+                        <td style="padding-top:10px;">
+                            <button type="submit" class="btn" id="send_data" name="vergelijk_data" value="vergelijk_data">Vergelijk</button>
+                            <button type="button" class="btn" id="add_periode" name="add_periode" onclick="periodeToevoegen();selectieUitschakelen()" >
+                                <i class="fa fa-plus"></i><span> Periode toevoegen</span></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+{% endif %}
+</body>
+<script type="text/javascript">
+    // Huidige datum laten zien in tot_datum_1
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    document.getElementById("tot_datum_1").value = today;
+
+
+    // Extra periode toevoegen of verwijderen
+    function periodeToevoegen() {
+        var periode_2 = document.getElementById("periode_2");
+        var titel_p1 = document.getElementById("titel_p1");
+        var van_p1 = document.getElementById("van_p1");
+        var tot_p1 = document.getElementById("tot_p1");
+        var add_btn_icon = document.getElementById("add_periode").querySelector('i');
+        var add_btn_text = document.getElementById("add_periode").querySelector('span');
+
+        if (periode_2.style.display === "none") {
+            periode_2.style.display = "block";
+            titel_p1.innerHTML = "Periode 1";
+            van_p1.innerHTML = "Van:";
+            tot_p1.innerHTML = "Tot:";
+            add_btn_icon.classList.remove('fa-plus');
+            add_btn_icon.classList.add('fa-step-backward');
+            add_btn_text.innerHTML = ' Opnieuw';
+        } else {
+            location.reload(true);
+        }
+    }
+
+    // Periode Toevoegen knop activeren of deactiveren aan de hand van tafel/wijk selectie
+    function periodeDeactiveren() {
+        document.querySelectorAll('.tafelCheck').forEach(elem => {
+            if (elem.checked === true) {
+                document.getElementById("add_periode").disabled = true;
+            }
+        });
+
+        document.querySelectorAll('.wijkCheck').forEach(elem => {
+            if (elem.checked === true) {
+                document.getElementById("add_periode").disabled = true;
+            }
+        });
+
+        var tafelChecked = document.querySelectorAll('.tafelCheck:checked');
+        var wijkChecked = document.querySelectorAll('.wijkCheck:checked');
+        if (tafelChecked.length === 0 && wijkChecked.length === 0) {
+            document.getElementById("add_periode").disabled = false;
+        }
+    }
+
+    // Wijk selectie uit/aan zetten aan de hand van Tafel selectie
+    function wijkDeactiveren() {
+        document.querySelectorAll('.tafelCheck').forEach(elem => {
+            if (elem.checked === true) {
+                document.querySelectorAll('.wijkCheck').forEach(elem => {
+                    elem.disabled = true;
+                });
+            }
+        });
+
+        var tafelChecked = document.querySelectorAll('.tafelCheck:checked');
+        if (tafelChecked.length === 0) {
+            document.querySelectorAll('.wijkCheck').forEach(elem => {
+                elem.disabled = false;
+            });
+        }
+
+    }
+
+    // Tafel selectie uit/aan zetten aan de hand van Wijk selectie
+    function tafelDeactiveren() {
+        document.querySelectorAll('.wijkCheck').forEach(elem => {
+            if (elem.checked === true) {
+                document.querySelectorAll('.tafelCheck').forEach(elem => {
+                    elem.disabled = true;
+                });
+            }
+        });
+
+        var tafelChecked = document.querySelectorAll('.wijkCheck:checked');
+        if (tafelChecked.length === 0) {
+            document.querySelectorAll('.tafelCheck').forEach(elem => {
+                elem.disabled = false;
+            });
+        }
+    }
+
+    // Wijk en tafel selectie uit/aan zetten aan de hand van Periode Toevoegen knop
+    function selectieUitschakelen() {
+        document.querySelectorAll('.tafelCheck').forEach(elem => {
+            elem.disabled = true;
+        });
+        document.querySelectorAll('.wijkCheck').forEach(elem => {
+            elem.disabled = true;
+        });
+    }
+
+    function limiet() {
+        //Maximaal 3 checkboxes kunnen actief zijn op een bepaald moment
+        //checkboxlimit(document.forms.vergelijk.tafels, 3);
+        //checkboxlimit(document.forms.vergelijk.wijken, 3);
+    }
+
+</script>
+</html>
