@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TerugknopPopup">
+   <children>
+      <Label alignment="CENTER" layoutX="64.0" layoutY="120.0" prefHeight="17.0" prefWidth="502.0" text="Weet u zeker dat u het scherm wilt verlaten? Onopgeslagen werk gaat verloren." />
+      <Button fx:id="BT_ja" layoutY="213.0" mnemonicParsing="false" onAction="#ja" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #05acd8;" text="Ja" />
+      <Button fx:id="BT_nee" layoutX="429.0" layoutY="213.0" mnemonicParsing="false" onAction="#nee" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #05acd8;" text="Nee" />
+   </children>
+</AnchorPane>

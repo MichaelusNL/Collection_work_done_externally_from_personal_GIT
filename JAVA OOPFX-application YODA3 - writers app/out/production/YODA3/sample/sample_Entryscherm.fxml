@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.HTMLEditor?>
+
+<AnchorPane fx:id="AP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Entryscherm">
+<children>
+   <Button fx:id="BT_terug" onAction="#openTerug" mnemonicParsing="false" prefHeight="70.0" prefWidth="60.0" style="-fx-background-color: #05acd8;" text="Terug" />
+   <Button fx:id="BT_opslag" onAction="#opslaan" layoutX="570.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="60.0" style="-fx-background-color: #05acd8;" text="Opslaan" />
+   <HTMLEditor fx:id="editor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="60.0" prefHeight="620.0" prefWidth="511.0" />
+</children>
+</AnchorPane>
