@@ -1,3 +1,10 @@
 # Example-work-for-future-employers
+This repo consists of work I conducted for: 
 
-This repo consists mainly of work from about 1.5 years of which 1 year belongs to a bachelor thesis and half a year is dedicated to a PhD thesis. This repo serves as giving examples of bio-informatics work done for future employers. Also added a sideproject of 3 months of making a website in the Netherlands, this was done with Django and the goal was to store data from restaurants of orders (time of the order/type of order/frequency etc.) and transform this into heatmaps and graphs for restaurant owners to get insight in their data.
+1. A restaurant data business called onescnd where data of several restaurants was stored in a SQL database and portrayed on a secured website with graphs and heatmaps to show what customers ordered at what time and where on their restaurant overview.
+
+2. A bachelor (hons equivalent in nZ) thesis where I worked at PFR(Plant and Food Research New Zealand) where I had to find sex differences in DNA with statistical tools in Python/R/BASH and design molecular markers. 
+
+3. Some PhD work in machine learning where I had to predict fish growth.
+
+4. A JAVA application for a writers app and a pipeline for genomic processing in Snakemake with JAVA/Python.
