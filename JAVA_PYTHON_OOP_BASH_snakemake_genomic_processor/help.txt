@@ -1,0 +1,27 @@
+i. Functie van de pipeline: De functie van de pipeline is om paired reads te inventariseren, de reads te trimmen, de getrimde reads te inventariseren,
+de getrimde reads te alignen tegen een referentiegenoom, een variantenlijst en consensussequentie te maken en  hiermee uiteindelijk het type en aantal snp's, het aantal inserties en deleties
+en de verhouding van deze inserties/deleties tegenover elkaar  te bepalen.
+
+ii. Manier van gebruik (aanroepen) van de pipeline met voorbeelden starten pipeline: De pipeline is aan aan te roepen door het volgende in te tikken in de commandline:
+'snakemake --snakefile Snakefile_s1100884 [rule die je wilt aanroepen]'. Met dit voorbeeld kan je een individuele rule aanroepen om zo alleen deze rule uit te voeren.
+De gehele pipeline is aan te roepen als volgt: 'snakemake --snakefile Snakefile_s1100884'.
+
+iii. Een overzicht van de naamgeving van de outputbestanden van de pipeline:
+
+Outputbestanden deelopdracht (inventariseren)1: ["1st_qc_bngsa_nietinfected_1", "1st_qc_bngsa_nietinfected_2"]
+Hier is het eerste bestand de output van de inventarisatie van  de inputfile: 'bngsa_nietinfected_1.fastq' en het tweede bestand de output van de inventarisatie van de inputfile: 'bngsa_nietinfected_2.fastq'.
+
+Outputbestanden deelopdracht (trimmen)2: ["trimmed_bngsa_nietinfected_1.fastq", "trimmed_bngsa_nietinfected_2.fastq"]
+Hier is het eerste bestand de output van de trim van de inputfile: 'bngsa_nietinfected_1.fastq' en het tweede bestand de output van de trim van de inputfile: 'bngsa_nietinfected_2.fastq'.
+
+Outputbestanden deelopdracht (inventariseren)3: ["2nd_qc_bngsa_nietinfected_1", "2nd_qc_bngsa_nietinfected_2"]
+Hier is het eerste bestand de output van de inventarisatie van de inputfile: 'trimmed_bngsa_nietinfected_1.fastq' en het tweede bestand de output van de inputfile: 'trimmed_bngsa_nietinfected_2.fastq'.
+
+Outputbestanden deelopdracht (alignment)4: ["infected_consensus.sam"]
+Dit bestand is de output van het alignen van de getrimde reads aan het referentiegenoom.
+
+Outputbestanden deelopdracht (variant_calling_consensus_generator)5: ["infected_consensus.bam", "sorted_infected_consensus.bam", "infected_consensus.mpileup", "infected_consensus.vcf", "final_infected_consensus.fq"]
+Hier is het eerste bestand de output van de BAM-conversie. De tweede van het sorteren van de waardes in de BAM file. De derde het gemaakte mpileup bestand, de vierde de variant_calling file en de vijfde de consensus file.
+
+Outputbestanden deelopdracht (snp_indel_counter)6: ["snp_indel_counts"]
+Dit bestand is de output van het bepalen van de snps en indels uit de gemaakte vcf file(infected_consensus.vcf). 
