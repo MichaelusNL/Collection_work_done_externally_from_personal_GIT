@@ -8,3 +8,7 @@ This repo consists of work I conducted for:
 3. Some PhD work in machine learning where I had to predict fish growth. -- Mainly done with Python SKlearn 
 
 4. A JAVA application for a writers app (JAVA FXML) and a pipeline for genomic processing in Snakemake with JAVA/Python/BASH.
+
+Disclaimer:
+
+This code may not be re-used in any way or form.
