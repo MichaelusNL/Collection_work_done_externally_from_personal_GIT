@@ -13,4 +13,4 @@ https://ibb.co/xCQ3RWQ
 
 Disclaimer:
 
-This code may not be re-used in any way or form.
+This code may not be re-used in any way or form. Most of it is under IP and can only be shown under this disclaimer.
