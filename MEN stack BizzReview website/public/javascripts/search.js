@@ -21,7 +21,7 @@ searchBar.addEventListener("keyup", e => {
 
 
 const setHtml = (title, url, description, location, id) => {
-    return `<ul id ="businesses">
+    return `<div id ="businesses">
             <div class="card mb-3">
                 <div class="row">
                     <div class="col-md-4">
@@ -48,5 +48,5 @@ const setHtml = (title, url, description, location, id) => {
                     </div>
                 </div>
             </div>
-    </ul>`;
+    </div>`;
 }
