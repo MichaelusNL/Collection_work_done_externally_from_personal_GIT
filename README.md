@@ -17,7 +17,7 @@ This repo consists of the following work:
 
 7. Some basic Android studio apps --> Android JAVA_KOTLIN_MAINS
 
-8. A MEN stack project I made up; This is a business review site, with inspiration from yelp. --> MEN stack BizzReview website
+8. A MEN stack project I made up; This is a business review site, with inspiration from yelp. --> M(MongoDB)E(Express)N(Node.js) stack (&HTML/Bootstrap5) BizzReview website
 - Website hosted online by Heroku
 - Database hosted through Mongo Atlas and cloudinary
 - Address: https://arcane-plains-71513.herokuapp.com/businesses
