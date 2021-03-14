@@ -24,4 +24,4 @@ This repo consists of the following work:
 
 Disclaimer:
 
-Code from 1, 2 and 3 are under IP and may not be re-used or copied in any way.
+<b>Code from 1, 2 and 3 are under IP and may not be re-used or copied in any way.</b>
