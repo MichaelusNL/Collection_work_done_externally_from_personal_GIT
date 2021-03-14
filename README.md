@@ -1,9 +1,9 @@
 # Example-work-for-future-employers
 This repo consists of the following work:
 
-1. A restaurant data business called onescnd where data of several restaurants was stored in a SQL database and portrayed on a secured website with graphs and heatmaps to show what customers ordered at what time and where on their restaurant overview. Made in Django with HTML/CSS/basic JS/Python. This website exists behind a paid account portal. See below an example pic of the website:
+1. A restaurant data business called onescnd where data of several restaurants was stored in a SQL database and portrayed on a secured website with graphs and heatmaps to show what customers ordered at what time and where on their restaurant overview. Made in Django with HTML/CSS/basic JS/Python. This website exists behind a paid account portal. 
 
-- https://ibb.co/xCQ3RWQ
+- Example picture of live website: https://ibb.co/xCQ3RWQ
 
 2. A bachelor (hons equivalent in nZ) thesis where I worked at PFR(Plant and Food Research New Zealand) where I had to find sex differences in DNA with statistical tools in Python/R/BASH and design molecular markers. Done with R/BASH/Python --> GBS_project/assembly_project/RNA-seq_project/sex_determination_project.
 
