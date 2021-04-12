@@ -21,7 +21,3 @@ This repo consists of the following work:
 - Website hosted online by Heroku
 - Database hosted through Mongo Atlas and cloudinary
 - Address: https://arcane-plains-71513.herokuapp.com/businesses
-
-Disclaimer:
-
-<b>Code from 1, 2 and 3 are under IP and may not be re-used or copied in any way.</b>
